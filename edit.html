@@ -1,0 +1,48 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+  {{ super() }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<style>
+
+</style>
+{% endblock %}
+
+{% block title %}Edit Movies{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="heading">Movie to edit</h1>
+  <p class="description">Here you go</p>
+ <div class="card" >
+   {% for i in all_movies: %}
+     {% if i['id'] == id: %}
+    <div class="front" style="background-image: url({{ i['img_url'] }});">
+        <p class="large">{{ i['id'] }}</p>
+    </div>
+    <div class="back">
+      <div>
+    <div class="title">{{ i['title'] }} <span class="release_date">({{ i['year'] }})</span></div>
+        <div class="rating">
+            <label>{{ i['rating'] }}</label>
+          <i class="fas fa-star star"></i>
+        </div>
+          <p class="review">"{{ i['review'] }}"</p>
+        <p class="overview">
+        {{ i['description'] }}
+        </p>
+      </div>
+    </div>
+  </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<div class="content">
+{{ wtf.quick_form(form, novalidate=True) }}
+</div>
+{% endblock %}
